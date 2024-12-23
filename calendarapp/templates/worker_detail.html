@@ -1,0 +1,71 @@
+{% extends "sec_base.html" %}
+
+{% block view_title %}
+Worker Details
+{% endblock %}
+
+{% block view_content %}
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <div style="
+        max-width: 500px;
+        width: 100%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        position: relative;
+    ">
+        <!-- Edit Button -->
+        <a href="{% url 'edit_worker' worker.id %}" style="
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            text-decoration: none;
+            font-size: 0.9em;
+            color: #007bff;
+            border: 1px solid #007bff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        " 
+        onmouseover="this.style.backgroundColor='#007bff'; this.style.color='#fff';"
+        onmouseout="this.style.backgroundColor='transparent'; this.style.color='#007bff';">
+            Edit
+        </a>
+
+        <!-- Worker Details -->
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="margin: 0; font-size: 1.8em; color: #333;">{{ worker.get_full_name }}</h2>
+            <p style="margin: 5px 0; font-size: 1em; color: #777;">{{ worker.job_title|default:"N/A" }}</p>
+        </div>
+
+        <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ddd;" />
+
+        <div style="margin-bottom: 10px;">
+            <p style="margin: 5px 0; font-size: 1em; color: #555;"><strong>Phone Number:</strong> {{ worker.phone_number|default:"Not provided" }}</p>
+            <p style="margin: 5px 0; font-size: 1em; color: #555;"><strong>Holiday Days Remaining:</strong> {{ worker.holiday_days_remaining }}</p>
+            <p style="margin: 5px 0; font-size: 1em; color: #555;"><strong>Health Days Remaining:</strong> {{ worker.health_days_remaining }}</p>
+            <p style="margin: 5px 0; font-size: 1em; color: {{ worker.is_on_vacation|yesno:"red,green" }};">
+                <strong>Status:</strong> 
+                {{ worker.is_on_vacation|yesno:"On Vacation,Active" }}
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'workers' %}" style="
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 1em;
+                color: #fff;
+                background-color: #007bff;
+                border-radius: 5px;
+                text-decoration: none;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            ">
+                Back to Workers List
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

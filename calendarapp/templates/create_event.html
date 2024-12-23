@@ -1,0 +1,18 @@
+{% extends "sec_base.html" %}
+
+{% block view_title %}
+Create Event for {{ event_date }}
+{% endblock %}
+
+{% block view_content %}
+<div class="container" style="max-width: 600px; margin-top: 30px;">
+  <h2>Create Event</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit" class="btn btn-primary">Create Event</button>
+  </form>
+  <a href="{% url 'calendar' %}" class="btn btn-secondary" style="margin-top: 10px;">Cancel</a>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "sec_base.html" %}
+
+{% block view_title %}
+Workers
+{% endblock %}
+
+
+{% block view_content %}
+
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    {% for user in users %}
+    <a href="{% url 'worker_detail' user.id %}" style="text-decoration: none; color: inherit;">
+        <div style="
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #f9f9f9;
+            text-align: center;
+        ">
+            <h3 style="margin: 0 0 10px; font-size: 1.2em;">{{ user.get_full_name }}</h3>
+            <p style="margin: 0 0 5px; font-size: 0.9em; color: #555;">Job Title: {{ user.job_title|default:"N/A" }}</p>
+
+            {% if user.is_on_vacation %}
+            <p style="margin: 0; color: red; font-weight: bold;">Not Active (Vacation)</p>
+            {% else %}
+            <p style="margin: 0; color: green; font-weight: bold;">Active</p>
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

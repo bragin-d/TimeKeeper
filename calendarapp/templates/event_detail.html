@@ -1,0 +1,12 @@
+{% extends "sec_base.html" %}
+
+{% block view_title %}
+Event Details
+{% endblock %}
+
+{% block view_content %}
+<h2>{{ event.title }}</h2>
+<p><strong>Date:</strong> {{ event.event_date }}</p>
+<p><strong>Description:</strong> {{ event.description }}</p>
+<p><strong>Created by:</strong> {{ event.user.get_full_name }}</p>
+{% endblock %}

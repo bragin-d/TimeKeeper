@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+        <!-- Favicons -->
+        <link rel="icon" href="https://getbootstrap.com/docs/5.0/assets/img/favicons/favicon.ico">
+
+        {% block links %}{% endblock %}
+
+        <style>
+            .bd-placeholder-img {
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+
+            .account-dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            .account-icon {
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 5px;
+                border-radius: 50%;
+            }
+
+            .dropdown-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                background-color: white;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                z-index: 1000;
+                min-width: 150px;
+                overflow: hidden;
+            }
+
+            .dropdown-menu a {
+                display: block;
+                padding: 10px 15px;
+                text-decoration: none;
+                color: black;
+            }
+
+            .dropdown-menu a:hover {
+                background-color: #f0f0f0;
+            }
+
+            .account-dropdown.active .dropdown-menu {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation -->
+        <header class="p-30 bg-dark text-white">
+            <div class="w-100 px-3">
+                <div class="d-flex align-items-center justify-content-between py-2">
+                    <!-- Left-aligned navbar elements -->
+                    <ul class="nav">
+                        <li><a href="{% url 'dashboard' %}" class="nav-link px-2 text-secondary">TimeKeeper</a></li>
+                        <!-- <li><a href="#" class="nav-link px-2 text-white">Tool 1</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">Tool2</a></li> -->
+                        <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                    </ul>
+
+                    <!-- Right-aligned search bar, account icon, and logout button -->
+                    <div class="d-flex align-items-center">
+                        <form class="me-3">
+                            <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                        </form>
+
+                        <!-- Account Dropdown -->
+                        <div class="account-dropdown me-3">
+                            <button class="account-icon">
+                                <img src="{% static 'assets/profile_pic.png' %}" alt="Account" style="width: 40px; height: 40px; border-radius: 50%;"/>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a href="/profile/">Profile</a>
+                                <a href="/settings/">Settings</a>
+                                <a href="{% url 'logout' %}">Logout</a>
+                            </div>
+                        </div>
+
+                        <!-- Logout Button -->
+                        <!-- <a href="{% url 'logout' %}">
+                            <button type="button" class="btn btn-primary">Logout</button>
+                        </a> -->
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <!-- JavaScript for dropdown functionality -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const accountDropdown = document.querySelector('.account-dropdown');
+                const accountIcon = document.querySelector('.account-icon');
+
+                accountIcon.addEventListener('click', function (event) {
+                    accountDropdown.classList.toggle('active');
+                    event.stopPropagation();
+                });
+
+                document.addEventListener('click', function () {
+                    accountDropdown.classList.remove('active');
+                });
+            });
+        </script>
+    </body>
+</html>
